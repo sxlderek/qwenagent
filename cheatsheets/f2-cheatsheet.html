@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="assets/images/favicon.png" rel="icon" />
+<title>F2 - Command-Line Batch Renaming | Cheatsheet</title>
+<meta name="description" content="F2 is a cross-platform command-line tool for batch renaming files and directories quickly and safely.">
+<meta name="author" content="Ayooluwa Isaiah">
+
+<!-- Stylesheet
+============================== -->
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
+<!-- Font Awesome Icon -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
+<!-- Magnific Popup -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
+<!-- Highlight Syntax -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
+</head>
+
+<body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
+
+<!-- Preloader -->
+<div class="preloader">
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<!-- Preloader End -->
+
+<!-- Document Wrapper
+=============================== -->
+<div id="main-wrapper">
+
+  <!-- Header
+  ============================ -->
+  <header id="header" class="sticky-top">
+    <!-- Navbar -->
+    <nav class="primary-menu navbar navbar-expand-lg navbar-dropdown-dark">
+      <div class="container-fluid">
+        <!-- Sidebar Toggler -->
+        <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
+
+        <!-- Logo -->
+        <a class="logo ml-md-3" href="#" title="F2 Cheatsheet">
+          <span style="font-weight:bold;font-size:1.5em;">F2</span>
+        </a>
+        <span class="text-2 ml-2">v2.0</span>
+        <!-- Logo End -->
+
+        <!-- Navbar Toggler -->
+        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
+
+        <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li><a target="_blank" href="https://github.com/ayoisaiah/f2">GitHub</a></li>
+            <li><a target="_blank" href="https://f2.freshman.tech">Official Docs</a></li>
+            <li><a target="_blank" href="https://github.com/ayoisaiah/f2/releases">Download</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+  </header>
+  <!-- Header End -->
+
+  <!-- Content
+  ============================ -->
+  <div id="content" role="main">
+
+    <!-- Sidebar Navigation
+    ============================ -->
+    <div class="idocs-navigation bg-light">
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_basic_usage">Basic Usage</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_core_flags">Core Flags</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_advanced">Advanced Options</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#idocs_filtering">File Filtering</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_replacement">Replacement Control</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_datetime">Datetime & Metadata</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_variables">Variables</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#idocs_builtin_vars">Built-in Variables</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_capture_vars">Capture Variables</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_exif_vars">EXIF/Image Metadata</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_id3_vars">ID3/Audio Metadata</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_sorting">Sorting</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_conflicts">Conflict Resolution</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_csv">CSV Renaming</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_pair">Pair Renaming</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_safety">Safety Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_examples">Examples</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_env">Environment Variables</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_patterns">Common Patterns</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_troubleshooting">Troubleshooting</a></li>
+      </ul>
+    </div>
+
+    <!-- Docs Content
+    ============================ -->
+    <div class="idocs-content">
+      <div class="container">
+
+        <!-- Getting Started
+        ============================ -->
+        <section id="idocs_start">
+          <h1>F2 Cheatsheet</h1>
+          <h2>Command-Line Batch Renaming</h2>
+          <p class="lead"><strong>F2</strong> is a cross-platform command-line tool for batch renaming files and directories <strong>quickly</strong> and <strong>safely</strong>. Written in Go!</p>
+          <hr>
+          <div class="row">
+            <div class="col-sm-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><strong>Version:</strong> 2.0</li>
+                <li><strong>Author:</strong> <a href="https://github.com/ayoisaiah" target="_blank">Ayooluwa Isaiah</a></li>
+              </ul>
+            </div>
+            <div class="col-sm-6 col-lg-4">
+              <ul class="list-unstyled">
+                <li><strong class="font-weight-700">License:</strong> MIT</li>
+                <li><strong>Language:</strong> Go</li>
+              </ul>
+            </div>
+          </div>
+          <p class="alert alert-info">Key features: Dry run by default, variable support (EXIF/ID3), comprehensive options, safety checks, conflict resolution, undo functionality, and high performance.</p>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Installation
+        ============================ -->
+        <section id="idocs_installation">
+          <h2>Installation</h2>
+          <p class="lead">Follow the steps below to install F2:</p>
+          <ol>
+            <li><strong>Go Installation (requires Go 1.23+):</strong>
+              <pre><code class="bash">go install github.com/ayoisaiah/f2/v2/cmd/f2@latest</code></pre>
+            </li>
+            <li><strong>Pre-compiled Binaries:</strong> Download from <a href="https://github.com/ayoisaiah/f2/releases" target="_blank">releases page</a></li>
+            <li><strong>Package Managers:</strong> See full installation guide at <a href="https://f2.freshman.tech/guide/getting-started.html" target="_blank">f2.freshman.tech</a></li>
+          </ol>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Basic Usage
+        ============================ -->
+        <section id="idocs_basic_usage">
+          <h2>Basic Usage</h2>
+          <pre><code class="bash">f2 FLAGS [OPTIONS] [PATHS TO FILES AND DIRECTORIES...]
+# or with pipe
+command | f2 FLAGS [OPTIONS]</code></pre>
+          
+          <p class="lead mt-4">Quick Start Examples:</p>
+          <pre><code class="bash"># Dry run (default) - preview changes without applying
+f2 -f 'jpeg' -r 'jpg'
+
+# Execute the renaming operation
+f2 -f 'jpeg' -r 'jpg' -x
+
+# Undo last rename operation
+f2 -u</code></pre>
+
+          <div class="alert alert-info mt-3">
+            <strong>Note:</strong> F2 runs in dry-run mode by default. Changes are previewed but not applied until you use <code>-x/--exec</code>.
+          </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Core Flags
+        ============================ -->
+        <section id="idocs_core_flags">
+          <h2>Core Flags</h2>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Flag</th>
+                <th style="width: 15%;">Short</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--find</code></td>
+                <td><code>-f</code></td>
+                <td>Regular expression pattern for matching files/directories</td>
+              </tr>
+              <tr>
+                <td><code>--replace</code></td>
+                <td><code>-r</code></td>
+                <td>Replacement string (supports variables)</td>
+              </tr>
+              <tr>
+                <td><code>--exec</code></td>
+                <td><code>-x</code></td>
+                <td>Execute the renaming operation</td>
+              </tr>
+              <tr>
+                <td><code>--undo</code></td>
+                <td><code>-u</code></td>
+                <td>Undo last renaming operation</td>
+              </tr>
+              <tr>
+                <td><code>--string-mode</code></td>
+                <td><code>-s</code></td>
+                <td>Treat find pattern as literal string</td>
+              </tr>
+              <tr>
+                <td><code>--ignore-case</code></td>
+                <td><code>-i</code></td>
+                <td>Ignore case when searching</td>
+              </tr>
+              <tr>
+                <td><code>--ignore-ext</code></td>
+                <td><code>-e</code></td>
+                <td>Ignore file extension when searching</td>
+              </tr>
+              <tr>
+                <td><code>--recursive</code></td>
+                <td><code>-R</code></td>
+                <td>Search directories recursively</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4 class="mt-5">Find & Replace Examples</h4>
+          <pre><code class="bash"># Replace all .jpeg with .jpg
+f2 -f 'jpeg' -r 'jpg'
+
+# Replace using regex capture groups
+f2 -f 'IMG_(\d{4})' -r 'Photo_${1}'
+
+# Literal string mode (no regex)
+f2 -s -f '[test]' -r 'test'
+
+# Case insensitive
+f2 -i -f 'readme' -r 'README'</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Advanced Options
+        ============================ -->
+        <section id="idocs_advanced">
+          <h2>Advanced Options</h2>
+
+          <!-- File Filtering -->
+          <div id="idocs_filtering">
+            <h3>File Filtering</h3>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Flag</th>
+                  <th style="width: 15%;">Short</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--include</code></td>
+                  <td><code>-I</code></td>
+                  <td>Only include files matching pattern</td>
+                </tr>
+                <tr>
+                  <td><code>--exclude</code></td>
+                  <td><code>-E</code></td>
+                  <td>Exclude files matching pattern</td>
+                </tr>
+                <tr>
+                  <td><code>--exclude-dir</code></td>
+                  <td></td>
+                  <td>Exclude directories matching pattern</td>
+                </tr>
+                <tr>
+                  <td><code>--include-dir</code></td>
+                  <td><code>-d</code></td>
+                  <td>Include directories in renaming</td>
+                </tr>
+                <tr>
+                  <td><code>--only-dir</code></td>
+                  <td><code>-D</code></td>
+                  <td>Rename only directories</td>
+                </tr>
+                <tr>
+                  <td><code>--hidden</code></td>
+                  <td><code>-H</code></td>
+                  <td>Include hidden files/directories</td>
+                </tr>
+                <tr>
+                  <td><code>--max-depth</code></td>
+                  <td><code>-m</code></td>
+                  <td>Limit recursive search depth</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <pre><code class="bash"># Only process JSON and YAML files
+f2 -I 'json' -I 'yml' -f 'old' -r 'new'
+
+# Exclude test files
+f2 -E 'test|spec' -f 'old' -r 'new'
+
+# Process hidden files
+f2 -H -f '^\.' -r 'backup_'</code></pre>
+          </div>
+
+          <!-- Replacement Control -->
+          <div id="idocs_replacement">
+            <h3 class="mt-5">Replacement Control</h3>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Flag</th>
+                  <th style="width: 15%;">Short</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--replace-limit</code></td>
+                  <td><code>-l</code></td>
+                  <td>Limit replacements per filename</td>
+                </tr>
+                <tr>
+                  <td><code>--replace-range</code></td>
+                  <td><code>-L</code></td>
+                  <td>Replace specific match range</td>
+                </tr>
+                <tr>
+                  <td><code>--clean</code></td>
+                  <td><code>-c</code></td>
+                  <td>Clean empty directories after rename</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <pre><code class="bash"># Replace only first occurrence
+f2 -f 'the' -r 'a' -l 1
+
+# Replace 2nd and 3rd matches only
+f2 -f 'word' -r 'replacement' -L '2..3'
+
+# Replace single match by index
+f2 -f 'item' -r 'new' -L '2'</code></pre>
+          </div>
+
+          <!-- Datetime & Metadata -->
+          <div id="idocs_datetime">
+            <h3 class="mt-5">Datetime & Metadata</h3>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 25%;">Flag</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>--dt</code></td>
+                  <td>Set default datetime variable path</td>
+                </tr>
+                <tr>
+                  <td><code>--timezone</code></td>
+                  <td>Set timezone for datetime formatting</td>
+                </tr>
+                <tr>
+                  <td><code>--exiftool-opts</code></td>
+                  <td>Customize ExifTool output</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <pre><code class="bash"># Use shortened datetime variable syntax
+f2 -r '{YYYY}-{MM}-{DD}' --dt 'xt.DateTimeOriginal'
+
+# Set timezone for timestamps
+f2 -f '*.dng' -r '{xt.DateTimeOriginal.dt}' --timezone 'Asia/Tokyo'
+
+# Custom date format from ExifTool
+f2 -r '{xt.GPSDateTime}' --exiftool-opts '--dateFormat %Y-%m-%d'</code></pre>
+          </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Variables
+        ============================ -->
+        <section id="idocs_variables">
+          <h2>Variables</h2>
+          <p class="lead">F2 supports powerful variables for dynamic renaming:</p>
+
+          <!-- Built-in Variables -->
+          <div id="idocs_builtin_vars">
+            <h3>Built-in Variables</h3>
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th style="width: 30%;">Variable</th>
+                  <th>Description</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>{ext}</code></td>
+                  <td>File extension</td>
+                </tr>
+                <tr>
+                  <td><code>{name}</code></td>
+                  <td>Filename without extension</td>
+                </tr>
+                <tr>
+                  <td><code>{dir}</code></td>
+                  <td>Directory name</td>
+                </tr>
+                <tr>
+                  <td><code>{index}</code></td>
+                  <td>Auto-incrementing index</td>
+                </tr>
+                <tr>
+                  <td><code>{parentDir}</code></td>
+                  <td>Parent directory name</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Capture Variables -->
+          <div id="idocs_capture_vars">
+            <h3 class="mt-5">Capture Variables</h3>
+            <pre><code class="bash"># Using regex capture groups
+f2 -f '(\w+)_(\d+)' -r '${2}_${1}'
+
+# Photo_001.jpg -> 001_Photo.jpg</code></pre>
+          </div>
+
+          <!-- EXIF/Image Metadata -->
+          <div id="idocs_exif_vars">
+            <h3 class="mt-5">EXIF/Image Metadata (via ExifTool)</h3>
+            <pre><code class="bash"># Use photo date in filename
+f2 -f '*.jpg' -r '{xt.DateTimeOriginal.YYYY}{xt.DateTimeOriginal.MM}{xt.DateTimeOriginal.DD}_{name}{ext}'
+
+# GPS coordinates
+f2 -f '*.jpg' -r '{xt.GPSLatitude}_{xt.GPSLongitude}_{name}{ext}'</code></pre>
+          </div>
+
+          <!-- ID3/Audio Metadata -->
+          <div id="idocs_id3_vars">
+            <h3 class="mt-5">ID3/Audio Metadata</h3>
+            <pre><code class="bash"># Organize music files
+f2 -f '*.mp3' -r '{id3.artist}/{id3.album}/${1}_{id3.title}{ext}'</code></pre>
+          </div>
+
+          <div class="alert alert-info mt-4">
+            <strong>Variable Syntax:</strong>
+            <ul class="mb-0">
+              <li><code>{variable}</code> - Simple variable</li>
+              <li><code>{variable.path}</code> - Nested property</li>
+              <li><code>{${captureGroup}}</code> - Regex capture reference</li>
+              <li><code>{xt.PropertyName}</code> - ExifTool variable</li>
+              <li><code>{id3.PropertyName}</code> - ID3 tag variable</li>
+            </ul>
+          </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Sorting
+        ============================ -->
+        <section id="idocs_sorting">
+          <h2>Sorting</h2>
+          <p class="lead">Sort files before renaming using <code>--sort</code> (ascending) or <code>--sortr</code> (descending):</p>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Sort Type</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>default</code></td>
+                <td>Lexicographical order</td>
+              </tr>
+              <tr>
+                <td><code>natural</code></td>
+                <td>Natural order (file1, file2, file10)</td>
+              </tr>
+              <tr>
+                <td><code>size</code></td>
+                <td>File size</td>
+              </tr>
+              <tr>
+                <td><code>mtime</code></td>
+                <td>Last modified time</td>
+              </tr>
+              <tr>
+                <td><code>btime</code></td>
+                <td>Creation time</td>
+              </tr>
+              <tr>
+                <td><code>atime</code></td>
+                <td>Last access time</td>
+              </tr>
+              <tr>
+                <td><code>ctime</code></td>
+                <td>Metadata change time</td>
+              </tr>
+              <tr>
+                <td><code>time_var</code></td>
+                <td>Sort by time variable</td>
+              </tr>
+              <tr>
+                <td><code>int_var</code></td>
+                <td>Sort by integer variable</td>
+              </tr>
+              <tr>
+                <td><code>string_var</code></td>
+                <td>Sort lexicographically by string variable</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <pre><code class="bash"># Sort by modification date
+f2 -f '*.jpg' -r 'Photo_{%03d}' --sort 'mtime'
+
+# Sort naturally before numbering
+f2 -f 'image*' -r 'img_{%03d}' --sort 'natural'
+
+# Sort by EXIF date
+f2 -f '*.jpg' -r '{%03d}' --sort 'time_var' --sort-var 'xt.DateTimeOriginal'
+
+# Reverse sort by size
+f2 -f '*.mp3' -r 'track_{%03d}' --sortr 'size'
+
+# Sort within each directory separately
+f2 -f '*.jpg' -r '{%03d}' --sort 'mtime' --sort-per-dir
+
+# Reset index per directory
+f2 -R -f '*.jpg' -r 'Photo_{%03d}' --reset-index-per-dir</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Conflict Resolution
+        ============================ -->
+        <section id="idocs_conflicts">
+          <h2>Conflict Resolution</h2>
+          <p class="lead">F2 detects and can automatically resolve naming conflicts:</p>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Flag</th>
+                <th>Short</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--fix-conflicts</code></td>
+                <td><code>-F</code></td>
+                <td>Auto-fix conflicts</td>
+              </tr>
+              <tr>
+                <td><code>--fix-conflicts-pattern</code></td>
+                <td></td>
+                <td>Custom conflict suffix pattern</td>
+              </tr>
+              <tr>
+                <td><code>--allow-overwrites</code></td>
+                <td></td>
+                <td>Allow overwriting existing files (use with caution!)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <pre><code class="bash"># Auto-fix conflicts with default pattern (1), (2), etc.
+f2 -f 'old' -r 'new' -F
+
+# Custom conflict pattern
+f2 -f 'old' -r 'new' -F --fix-conflicts-pattern '_%02d'
+# Results: new_01, new_02, etc.
+
+# WARNING: Allow overwriting (use with caution!)
+f2 -f 'old' -r 'new' --allow-overwrites -x</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- CSV Renaming
+        ============================ -->
+        <section id="idocs_csv">
+          <h2>CSV Renaming</h2>
+          <p class="lead">Rename files using a CSV spreadsheet:</p>
+
+          <pre><code class="bash"># Basic CSV renaming
+f2 --csv renames.csv</code></pre>
+
+          <h4 class="mt-4">CSV Format</h4>
+          <pre><code class="csv">original_filename,new_filename
+old_name.txt,new_name.txt
+image.jpg,photo_2024.jpg</code></pre>
+
+          <h4 class="mt-4">Example CSV File</h4>
+          <pre><code class="csv">original_filename,new_filename
+DSC0001.JPG,Vacation_Day1.jpg
+DSC0002.JPG,Vacation_Day2.jpg
+IMG_1234.png,Screenshot_Homepage.png</code></pre>
+
+          <pre><code class="bash"># Apply CSV-based renaming
+f2 --csv renames.csv -x</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Pair Renaming
+        ============================ -->
+        <section id="idocs_pair">
+          <h2>Pair Renaming</h2>
+          <p class="lead">Rename files with same name but different extensions together:</p>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 25%;">Flag</th>
+                <th>Short</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>--pair</code></td>
+                <td><code>-p</code></td>
+                <td>Enable pair renaming</td>
+              </tr>
+              <tr>
+                <td><code>--pair-order</code></td>
+                <td></td>
+                <td>Order files by extension</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <pre><code class="bash"># Rename RAW+JPEG pairs
+# Before: DSC08533.ARW DSC08533.JPG DSC08534.ARW DSC08534.JPG
+f2 -r "Photo_{%03d}" --pair -x
+# After: Photo_001.ARW Photo_001.JPG Photo_002.ARW Photo_002.JPG
+
+# Specify which extension takes priority for metadata
+f2 -r "{xt.DateTimeOriginal.YYYYMM%d}_{name}{ext}" --pair --pair-order 'arw,jpg' -x</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Safety Features
+        ============================ -->
+        <section id="idocs_safety">
+          <h2>Safety Features</h2>
+
+          <h3>Dry Run by Default</h3>
+          <p>F2 runs in dry-run mode by default. Changes are previewed but not applied until you use <code>-x/--exec</code>.</p>
+          <pre><code class="bash"># Preview only (safe)
+f2 -f 'old' -r 'new'
+
+# Apply changes
+f2 -f 'old' -r 'new' -x</code></pre>
+
+          <h3 class="mt-4">Undo Functionality</h3>
+          <p>Mistakes can be easily undone:</p>
+          <pre><code class="bash"># Undo last renaming operation
+f2 -u
+
+# Undo and see what would be reverted
+f2 -u -x</code></pre>
+
+          <h3 class="mt-4">Conflict Detection</h3>
+          <p>F2 validates all operations before execution:</p>
+          <ul>
+            <li>Detects target filename conflicts</li>
+            <li>Identifies forbidden characters</li>
+            <li>Checks filename length limits</li>
+            <li>Prevents accidental overwrites</li>
+          </ul>
+
+          <h3 class="mt-4">Quiet Mode</h3>
+          <pre><code class="bash"># Silent mode (only errors shown)
+f2 -q -f 'old' -r 'new'</code></pre>
+
+          <h3 class="mt-4">JSON Output</h3>
+          <pre><code class="bash"># Machine-readable output
+f2 --json -f 'old' -r 'new'</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Examples
+        ============================ -->
+        <section id="idocs_examples">
+          <h2>Examples</h2>
+
+          <h3>Basic Renaming</h3>
+          <pre><code class="bash"># Change file extension
+f2 -f '\.jpeg$' -r '.jpg' -x
+
+# Add prefix to all files
+f2 -f '(.*)' -r 'backup_$1' -x
+
+# Remove spaces from filenames
+f2 -f ' ' -r '_' -x
+
+# Convert to lowercase
+f2 -f '.*' -r '{name|lower}{ext}' -x</code></pre>
+
+          <h3 class="mt-5">Photo Organization</h3>
+          <pre><code class="bash"># Date-based photo naming
+f2 -f '*.jpg' -r '{xt.DateTimeOriginal.YYYY}-{xt.DateTimeOriginal.MM}-{xt.DateTimeOriginal.DD}_{%03d}{ext}' \
+  --sort 'time_var' --sort-var 'xt.DateTimeOriginal' -x
+
+# Organize by photographer
+f2 -f '*.dng' -r '{xt.Creator}/{xt.DateTimeOriginal.YYYY}/{name}{ext}' -x</code></pre>
+
+          <h3 class="mt-5">Music Library</h3>
+          <pre><code class="bash"># Organize MP3s by artist/album
+f2 -f '*.mp3' -r '{id3.artist}/{id3.album}/{id3.trackNumber} - {id3.title}{ext}' -x
+
+# Fix inconsistent track numbering
+f2 -f '*.mp3' -r '{id3.artist} - {id3.album} - {%02d} - {id3.title}{ext}' --sort 'natural' -x</code></pre>
+
+          <h3 class="mt-5">Document Management</h3>
+          <pre><code class="bash"># Standardize document naming
+f2 -f 'report[_-]?\d{4}' -r 'Report_2024' -i -x
+
+# Add date stamp to files
+f2 -f '(.+)\.pdf' -r '$1_20240101.pdf' -x</code></pre>
+
+          <h3 class="mt-5">Recursive Operations</h3>
+          <pre><code class="bash"># Rename throughout directory tree
+f2 -R -f 'temp' -r 'permanent' -x
+
+# Limit recursion depth
+f2 -R -m 2 -f 'old' -r 'new' -x
+
+# Only rename directories recursively
+f2 -R -D -f 'draft' -r 'final' -x</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Environment Variables
+        ============================ -->
+        <section id="idocs_env">
+          <h2>Environment Variables</h2>
+
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th style="width: 30%;">Variable</th>
+                <th>Description</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>F2_DEFAULT_OPTS</code></td>
+                <td>Set default options</td>
+              </tr>
+              <tr>
+                <td><code>F2_NO_COLOR</code></td>
+                <td>Disable colored output</td>
+              </tr>
+              <tr>
+                <td><code>NO_COLOR</code></td>
+                <td>Disable colored output (standard)</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <pre><code class="bash"># Set permanent defaults
+export F2_DEFAULT_OPTS="--exec --ignore-ext --recursive"
+
+# Disable colors
+export F2_NO_COLOR=1
+export NO_COLOR=1</code></pre>
+
+          <h4 class="mt-4">Example Configuration</h4>
+          <p>Add to your <code>~/.bashrc</code> or <code>~/.zshrc</code>:</p>
+          <pre><code class="bash"># Always show preview, enable recursive by default
+export F2_DEFAULT_OPTS="--recursive --verbose"
+
+# Safe defaults
+export F2_DEFAULT_OPTS="--ignore-case --verbose"</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Common Patterns
+        ============================ -->
+        <section id="idocs_patterns">
+          <h2>Common Patterns</h2>
+
+          <h3>Sequential Numbering</h3>
+          <pre><code class="bash">f2 -f '.*' -r 'Image_{%03d}{ext}' --sort 'natural' -x
+# Image_001.jpg, Image_002.jpg, ...</code></pre>
+
+          <h3>Date Prefix</h3>
+          <pre><code class="bash">f2 -f '(.+)' -r '20240101_$1' -x
+# 20240101_document.pdf</code></pre>
+
+          <h3>Remove Special Characters</h3>
+          <pre><code class="bash">f2 -f '[^a-zA-Z0-9._-]' -r '_' -x
+# my file (copy).txt -> my_file__copy_.txt</code></pre>
+
+          <h3>Swap Words</h3>
+          <pre><code class="bash">f2 -f '(\w+)_(\w+)' -r '${2}_${1}' -x
+# first_last.txt -> last_first.txt</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Troubleshooting
+        ============================ -->
+        <section id="idocs_troubleshooting">
+          <h2>Troubleshooting</h2>
+
+          <h3>No Matches Found</h3>
+          <pre><code class="bash"># Check if pattern is correct
+f2 -f 'pattern'  # Dry run shows what would match
+
+# Try case-insensitive
+f2 -i -f 'Pattern'
+
+# Include hidden files
+f2 -H -f '\.'</code></pre>
+
+          <h3 class="mt-4">Conflicts Detected</h3>
+          <pre><code class="bash"># View conflicts in dry-run
+f2 -f 'old' -r 'new'
+
+# Auto-resolve
+f2 -f 'old' -r 'new' -F
+
+# Custom resolution pattern
+f2 -f 'old' -r 'new' -F --fix-conflicts-pattern '_v%d'</code></pre>
+
+          <h3 class="mt-4">Permission Errors</h3>
+          <pre><code class="bash"># Ensure you have write permissions
+ls -la /path/to/files
+
+# Run with appropriate permissions (use cautiously)
+sudo f2 -f 'old' -r 'new' -x</code></pre>
+        </section>
+
+        <hr class="divider">
+
+        <!-- Resources
+        ============================ -->
+        <section id="idocs_resources">
+          <h2>Resources</h2>
+          <ul class="list-unstyled">
+            <li><i class="fas fa-external-link-alt mr-2"></i><a href="https://f2.freshman.tech" target="_blank">Official Documentation</a></li>
+            <li><i class="fab fa-github mr-2"></i><a href="https://github.com/ayoisaiah/f2" target="_blank">GitHub Repository</a></li>
+            <li><i class="fas fa-book mr-2"></i><a href="https://f2.freshman.tech/guide/tutorial.html" target="_blank">Tutorial</a></li>
+            <li><i class="fas fa-images mr-2"></i><a href="https://f2.freshman.tech/guide/organizing-image-library.html" target="_blank">Real-world Examples</a></li>
+            <li><i class="fas fa-history mr-2"></i><a href="https://f2.freshman.tech/reference/changelog.html" target="_blank">Changelog</a></li>
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </div>
+  <!-- Content End -->
+
+  <!-- Footer
+  ============================ -->
+  <footer id="footer" class="section bg-dark footer-text-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="text-5 mb-3">F2 Cheatsheet</p>
+          <p class="text-3 mb-0">Created based on F2 v2 source code</p>
+        </div>
+        <div class="col-md-6 text-md-right">
+          <ul class="social-icons social-icons-light list-inline mb-0">
+            <li class="social-icons-github"><a href="https://github.com/ayoisaiah/f2" target="_blank"><i class="fab fa-github"></i></a></li>
+            <li class="social-icons-twitter"><a href="https://twitter.com/harnishdesign/" target="_blank"><i class="fab fa-twitter"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- Footer End -->
+
+</div>
+<!-- Document Wrapper end -->
+
+<!-- JavaScript
+============================ -->
+<script src="assets/vendor/jquery/jquery.min.js"></script>
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Highlight JS -->
+<script src="assets/vendor/highlight.js/highlight.min.js"></script>
+<!-- Easing -->
+<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script>
+<!-- Magnific Popup -->
+<script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- Custom Script -->
+<script src="assets/js/theme.js"></script>
+</body>
+</html>
